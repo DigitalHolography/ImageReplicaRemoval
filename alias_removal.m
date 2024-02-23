@@ -268,6 +268,8 @@ axis square
 axis off
 colormap gray
 
+imwrite(mat2gray(UU(:, :, 1)), 'C:\\Users\Bronxville\Pictures\UU_1.png')
+
 Threshold1 = 2;
 Threshold2 = 5;
 img_svded = U*S(:,Threshold1:Threshold2)*V(:,Threshold1:Threshold2)';
@@ -297,11 +299,14 @@ end
 %     pause(0.3)
 % end
 
-% pks = gather(pks);
-% pks = pks - min(pks, [], 'all');
-% cor_factor = sqrt(mean(pks)/max(peaks));
+pks = prom;
+pks = pks - min(pks, [], 'all');
+cor_factor = sqrt(mean(pks)/max(pks));
+
+
+
 % cor_factor = mean(prom);
-cor_factor = 0.7;
+% cor_factor = 0.7;
 % correction_img = mat2gray(UU(:,:, 2));
 % img_to_remove = cor_factor*img_svded(:,:,2)+cor_factor*img_svded(:,:,3);
 % img_to_remove = UU(:,:, 3);
@@ -311,6 +316,10 @@ for i = Threshold1 : Threshold2
     img_to_remove = img_to_remove + img_svded(:,:,i);
 end
 
+
+% for ff = 1 : length(tab_factor)
+%     img_org - img_to_remove;
+% end
 
 % B = img_org-cor_factor*img_svded(:,:,2)-cor_factor*img_svded(:,:,3);
 B = img_org-cor_factor*img_to_remove;
